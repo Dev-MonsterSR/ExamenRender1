@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Registros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="container wide">
+        <h1>Administrar Registros</h1>
+
+        <a class="link-btn" href="{{ url_for('index') }}">Volver al registro</a>
+
+        {% if registros %}
+        <div class="table-wrap card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.id }}</td>
+                        <td>{{ registro.dni }}</td>
+                        <td>{{ registro.nombre }}</td>
+                        <td>{{ registro.apellido }}</td>
+                        <td>{{ registro.direccion or '-' }}</td>
+                        <td>{{ registro.telefono or '-' }}</td>
+                        <td>
+                            <form action="{{ url_for('eliminar_registro', persona_id=registro.id) }}" method="post" onsubmit="return confirm('Desea eliminar este registro?');">
+                                <button type="submit" class="danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="alert">No hay registros para mostrar.</p>
+        {% endif %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Personas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h1>Registro de Personas</h1>
+
+        <a class="link-btn" href="{{ url_for('administrar') }}">Administrar registros</a>
+
+        {% if mensaje %}
+        <p class="alert success">{{ mensaje }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('registrar') }}" method="post" class="card">
+            <div class="form-group">
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" name="dni" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">Direccion</label>
+                <input type="text" id="direccion" name="direccion">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Telefono</label>
+                <input type="text" id="telefono" name="telefono">
+            </div>
+
+            <button type="submit">Registrar</button>
+        </form>
+    </main>
+</body>
+</html>
