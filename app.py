@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import psycopg2
-from psycopg2.extras import RealDictCursor
+import psycopg
+from psycopg.rows import dict_row
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 
@@ -13,7 +13,7 @@ DATABASE_URL = os.environ.get("DATABASE_URL", DEFAULT_DATABASE_URL)
 
 
 def conectar_db():
-    return psycopg2.connect(DATABASE_URL)
+    return psycopg.connect(DATABASE_URL)
 
 
 def inicializar_tabla():
@@ -51,7 +51,7 @@ def obtener_registros():
     ORDER BY id DESC
     """
     with conectar_db() as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as cursor:
+        with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute(query)
             return cursor.fetchall()
 
